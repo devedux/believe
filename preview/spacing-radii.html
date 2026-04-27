@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><title>Spacing & radii</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>body{margin:0;padding:20px;background:#fff;color:var(--fg-1);font-family:var(--font-sans)}
+.block{display:flex;gap:18px;align-items:flex-end;margin-bottom:16px}
+.sq{background:var(--cyan-500);border-radius:4px;display:flex;align-items:flex-end;justify-content:center;color:white;font-family:var(--font-mono);font-size:10px;padding:2px}
+.lbl{font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.08em;font-weight:600;margin-bottom:8px}
+.rad{display:flex;gap:12px;align-items:flex-end}
+.r{width:60px;height:60px;background:var(--cyan-100);border:1px solid var(--cyan-300);display:flex;align-items:flex-end;justify-content:center;color:var(--cyan-800);font-family:var(--font-mono);font-size:10px;padding-bottom:4px}</style></head><body>
+<div class="lbl">Spacing — 4px base</div>
+<div class="block">
+  <div class="sq" style="width:4px;height:4px">4</div>
+  <div class="sq" style="width:8px;height:8px">8</div>
+  <div class="sq" style="width:12px;height:12px">12</div>
+  <div class="sq" style="width:16px;height:16px">16</div>
+  <div class="sq" style="width:24px;height:24px">24</div>
+  <div class="sq" style="width:32px;height:32px">32</div>
+  <div class="sq" style="width:48px;height:48px">48</div>
+  <div class="sq" style="width:64px;height:64px">64</div>
+</div>
+<div class="lbl" style="margin-top:6px">Radii</div>
+<div class="rad">
+  <div class="r" style="border-radius:4px">4</div>
+  <div class="r" style="border-radius:10px">10</div>
+  <div class="r" style="border-radius:14px">14</div>
+  <div class="r" style="border-radius:20px">20</div>
+  <div class="r" style="border-radius:999px">pill</div>
+</div>
+</body></html>

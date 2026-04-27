@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Believe Portal — UI Kit</title>
+<link rel="stylesheet" href="../../colors_and_type.css">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg-app); color: var(--fg-1); font-family: var(--font-sans); }
+  .shell { display: flex; min-height: 100vh; }
+  main { flex: 1; min-width: 0; max-width: 100%; }
+  .role-switch {
+    position: fixed; top: 16px; right: 20px; z-index: 50;
+    background: white; border: 1px solid var(--border-1); border-radius: 999px;
+    padding: 4px; display: flex; gap: 2px; box-shadow: var(--shadow-sm);
+  }
+  .role-switch button {
+    font-family: inherit; font-size: 12px; font-weight: 600;
+    padding: 6px 14px; border-radius: 999px; border: none; background: transparent;
+    cursor: pointer; color: var(--fg-3); transition: all 140ms;
+  }
+  .role-switch button.active { background: var(--indigo-500); color: white; }
+  .role-switch .divider { width: 1px; background: var(--border-1); margin: 3px 4px; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script src="data.js"></script>
+<script type="text/babel" src="Primitives.jsx"></script>
+<script type="text/babel" src="Widget.jsx"></script>
+<script type="text/babel" src="StudentHome.jsx"></script>
+<script type="text/babel" src="BookingFlow.jsx"></script>
+<script type="text/babel" src="TeacherHome.jsx"></script>
+<script type="text/babel" src="AdminHome.jsx"></script>
+
+<script type="text/babel">
+  const { useState } = React;
+
+  function App() {
+    const [role, setRole] = useState('estudiante');
+    const [nav, setNav] = useState('home');
+
+    const titles = {
+      estudiante: { eyebrow: 'Estudiante', title: 'Hola Sebastián' },
+      profesor:   { eyebrow: 'Profesor', title: 'Hola María José' },
+      admin:      { eyebrow: 'Administración', title: 'Panel de gestión' },
+    };
+
+    const Screen = {
+      estudiante: nav === 'reservar' ? BookingFlow : StudentHome,
+      profesor:   TeacherHome,
+      admin:      AdminHome,
+    }[role];
+
+    // Dynamic titles per role + nav section
+    const studentNavTitles = {
+      home: 'Hola Sebastián',
+      reservar: 'Reservar clases',
+      asistencia: 'Asistencia',
+      pagos: 'Pagos',
+      perfil: 'Mi perfil',
+    };
+
+    // Admin: dynamic title based on active nav section
+    const adminNavTitles = {
+      home: 'Panel de gestión',
+      reservas: 'Reservas & slots',
+      estudiantes: 'Estudiantes',
+      pagos: 'Pagos & cobros',
+      profesores: 'Profesores',
+      excel: 'Importar/Exportar',
+    };
+    const resolvedTitle =
+      role === 'admin' ? (adminNavTitles[nav] || 'Panel de gestión') :
+      role === 'estudiante' ? (studentNavTitles[nav] || titles[role].title) :
+      titles[role].title;
+
+    const avatarMeta = {
+      estudiante: { name: 'Sebastián Ríos', color: 'var(--indigo-500)' },
+      profesor:   { name: 'María José',     color: 'var(--cyan-500)' },
+      admin:      { name: 'Sofía Vera',     color: 'var(--neutral-900)' },
+    }[role];
+
+    const roles = [
+      ['estudiante', 'Estudiante'],
+      ['profesor', 'Profesor'],
+      ['admin', 'Administración'],
+    ];
+
+    return (
+      <>
+        <div className="role-switch" title="Vista demo de roles">
+          <span style={{ padding:'6px 10px', fontSize: 10, fontWeight: 700, color:'var(--fg-4)', letterSpacing:'0.06em', textTransform:'uppercase' }}>Demo</span>
+          <span className="divider"/>
+          {roles.map(([k, label]) => (
+            <button key={k} className={role === k ? 'active' : ''} onClick={() => { setRole(k); setNav('home'); }}>
+              {label}
+            </button>
+          ))}
+        </div>
+        <div className="shell">
+          <Sidebar role={role} active={nav} onNav={setNav}/>
+          <main>
+            <TopBar
+              eyebrow={titles[role].eyebrow}
+              title={resolvedTitle}
+              right={
+                <>
+                  <button style={{ background:'var(--neutral-100)', border:'none', width:38, height:38, borderRadius:999, cursor:'pointer', display:'flex', alignItems:'center', justifyContent:'center', position:'relative' }}>
+                    <IconBell size={17}/>
+                    <span style={{ position:'absolute', top:8, right:9, width:8, height:8, borderRadius:'50%', background:'var(--red-500)', border:'2px solid white' }}/>
+                  </button>
+                  <Avatar name={avatarMeta.name} color={avatarMeta.color}/>
+                </>
+              }
+            />
+            {role === 'admin' ? <Screen tab={nav}/> : <Screen/>}
+          </main>
+        </div>
+      </>
+    );
+  }
+
+  ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+</body>
+</html>

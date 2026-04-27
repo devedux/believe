@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><title>Form inputs</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>body{margin:0;padding:24px;background:#fff;color:var(--fg-1);font-family:var(--font-sans)}
+.fld{display:flex;flex-direction:column;gap:6px;margin-bottom:14px;max-width:420px}
+label{font-size:12px;font-weight:600;color:var(--fg-2)}
+input,select{font-family:inherit;font-size:14px;padding:10px 14px;border:1px solid var(--border-1);border-radius:8px;background:white;color:var(--fg-1);outline:none;transition:border-color 160ms}
+input:focus{border-color:var(--cyan-400);box-shadow:0 0 0 3px rgba(6,147,227,0.18)}
+.hint{font-size:11px;color:var(--fg-3)}
+.error input{border-color:var(--red-500)}
+.error .hint{color:var(--red-700)}
+.row{display:flex;gap:10px}
+</style></head><body>
+<div class="fld"><label>Correo</label><input value="sebastian@mail.com"></div>
+<div class="fld error"><label>Contraseña</label><input type="password" value="1234"><div class="hint">Mínimo 8 caracteres</div></div>
+<div class="fld"><label>Idioma que estudias</label>
+  <select><option>🇬🇧 Inglés</option><option>🇫🇷 Francés</option><option>🇯🇵 Japonés</option></select>
+</div>
+</body></html>

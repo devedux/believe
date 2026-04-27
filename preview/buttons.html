@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><title>Buttons</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>body{margin:0;padding:24px;background:#fff;color:var(--fg-1);font-family:var(--font-sans)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:10px 18px;border-radius:12px;font-weight:600;font-size:14px;border:1px solid transparent;cursor:pointer;font-family:inherit}
+.primary{background:var(--cyan-500);color:white}
+.secondary{background:var(--indigo-500);color:white}
+.ghost{background:transparent;color:var(--cyan-700);border-color:var(--border-1)}
+.quiet{background:var(--neutral-100);color:var(--fg-1)}
+.danger{background:var(--red-500);color:white}
+.icon{background:white;color:var(--fg-1);border:1px solid var(--border-1);width:40px;height:40px;padding:0;border-radius:12px}
+.row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:14px;align-items:center}
+.lbl{font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:0.08em;font-weight:600;width:80px;flex-shrink:0}</style></head><body>
+<div class="row"><span class="lbl">Primary</span>
+  <button class="btn primary">Reservar clases →</button>
+  <button class="btn primary" style="padding:8px 16px;font-size:13px">Small</button>
+</div>
+<div class="row"><span class="lbl">Secondary</span>
+  <button class="btn secondary">Ver horario</button>
+  <button class="btn ghost">Cancelar</button>
+  <button class="btn quiet">Más tarde</button>
+</div>
+<div class="row"><span class="lbl">Status</span>
+  <button class="btn danger">Eliminar</button>
+  <button class="btn icon">＋</button>
+  <button class="btn icon">✕</button>
+</div>
+</body></html>
